@@ -14,9 +14,8 @@ struct LayoutSection: Element {
             header
             content().map { $0.render() }.joined()
         }
-        .padding(of: 8)
-        .background(color: .custom("#f5f5f3"))
+        .padding(of: 6)
+        .background(color: .stone(._100))
         .border(of: 1, at: .bottom, color: .black())
-        .font(family: "Space Grotesk")
     }
 }

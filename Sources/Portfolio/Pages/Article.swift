@@ -33,12 +33,12 @@ struct ArticleContent: Element {
                 Link(to: "/") {
                     Text("Back to Home")
                 }
-                .font(size: .xs, weight: .bold, color: .custom("#0c8075"))
+                .font(size: .xs2, weight: .bold, color: .custom("#0c8075"))
                 .margins(of: 6, at: .bottom)
 
                 Stack {
                     Text(log.date)
-                        .font(size: .xs, weight: .bold)
+                        .font(size: .xs2, weight: .bold)
                         .opacity(60)
 
                     Heading(.largeTitle, log.title)

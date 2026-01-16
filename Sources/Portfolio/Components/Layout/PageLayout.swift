@@ -24,13 +24,13 @@ struct PageLayout: Element {
             .border(of: 1, at: .horizontal, color: .black())
             .frame(width: .full, minHeight: .viewport(.dynamicViewHeight))
             .flex(direction: .column)
-            .background(color: .custom("#f5f5f3"))
+            .background(color: .stone(._100))
             .shadow(size: .xl2)
             .frame(width: .full, maxWidth: .custom("1200px"))
         }
         .position(.relative)
         .frame(width: .full, minHeight: .viewport(.dynamicViewHeight))
         .flex(direction: .column, align: .center)
-        .background(color: .custom("#f5f5f3"))
+        .background(color: .stone(._100))
     }
 }

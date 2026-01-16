@@ -7,27 +7,36 @@ struct LogItem: Element {
         Link(to: "/logs/\(log.slug).html") {
             Stack {
                 Text(log.date)
-                    .font(size: .xs, weight: .bold)
-                    .opacity(60)
+                    .font(size: .xs2, weight: .bold, color: .zinc(._500))
                     .frame(width: .spacing(16))
+                    .transition(of: .colors, for: 200)
 
-                Text(log.title)
-                    .font(size: .sm, weight: .bold)
+                Text(log.title.uppercased())
+                    .font(size: .sm, weight: .bold, tracking: .wide)
                     .flex(grow: .one)
                     .padding(of: 4, at: .trailing)
+                    .transition(of: .all, for: 200)
+                    .margins(of: 4, at: .leading)
+                    .on {
+                        $0.groupHover {
+                            $0.padding(of: 2, at: .leading)
+                        }
+                    }
 
                 AddIcon()
+                    .transition(of: .all, for: 200)
             }
             .flex(direction: .row, justify: .between, align: .center)
         }
-        .padding(of: 6, at: .vertical)
-        .padding(of: 2, at: .horizontal)
+        .padding(of: 3, at: .vertical)
+        .padding(of: 3, at: .horizontal)
         .border(of: 1, at: .bottom, color: .black())
         .cursor(.pointer)
         .transition(of: .all, for: 200)
+        .group()
         .on {
             $0.hover {
-                $0.background(color: .white(opacity: 0.5))
+                $0.background(color: .stone(._100))
             }
         }
     }

@@ -6,28 +6,30 @@ struct Hero: Element {
             Stack {
                 SectionHeader(number: "01", label: "IDENTITY")
 
-                Heading(.largeTitle, "Full Stack Swift specialising in Web Services, CLI Tools, Embedded and Native Apple Applications.")
-                    .font(size: .xl3, weight: .bold, tracking: .tight, leading: .tight)
+                Heading(.largeTitle, "FULL STACK SWIFT EXPERIENCED IN WEB SERVICES, CLI TOOLS, EMBEDDED AND NATIVE APPLE APPLICATIONS.")
+                    .font(size: .xl3, weight: .bold, tracking: .tighter, leading: .tight)
                     .frame(maxWidth: .xl4)
-                    .margins(of: 12, at: .bottom)
+                    .margins(of: 8, at: .bottom)
                     .on {
                         $0.md {
                             $0.font(size: .xl5)
                         }
                     }
+                
+                WaveIcon()
             }
-            .padding(of: 8)
+            .padding(of: 6)
             .border(of: 1, at: .bottom, color: .black())
-            .background(color: .custom("#f5f5f3"))
+            .background(color: .stone(._100))
             .on {
                 $0.md {
-                    $0.padding(of: 12)
+                    $0.padding(of: 10)
                 }
             }
 
             Stack {
-                Text("OPERATIONAL PARAMETERS: SWIFT, SWIFTUI, COREDATA, HUMMINGBIRD, HTML, CSS, JS, POSIX SHELL, AND UNIX.")
-                    .font(size: .xs, tracking: .wider, leading: .relaxed)
+                Text("OPERATIONAL PARAMETERS: SWIFT, SWIFTUI, COMBINE, HUMMINGBIRD, HTML, CSS, JS, POSIX SHELL, UNIX, GIT, DOCKER, SQL, CI/CD.")
+                    .font(size: .xs2, tracking: .wider, leading: .relaxed)
                     .opacity(90)
                     .frame(maxWidth: .xl)
 
@@ -37,10 +39,10 @@ struct Hero: Element {
                         .background(color: .black(opacity: 0.2))
 
                     Stack {
-                        Text("LOC: LONDON, UK")
-                            .font(size: .xs, weight: .bold, color: .black())
+                        Text("LOC: London, UK")
+                            .font(size: .xs2, weight: .bold, color: .black(), casing: .uppercase)
                         Text("OCC: Software Engineer, SSL")
-                            .font(size: .xs, weight: .bold, tracking: .tighter)
+                            .font(size: .xs2, weight: .bold, tracking: .tighter, casing: .uppercase)
                             .opacity(50)
                     }
                     .flex(direction: .column)
@@ -49,14 +51,19 @@ struct Hero: Element {
                     .padding(of: 4, at: .leading)
                 }
                 .flex(direction: .row, align: .center)
-                .spacing(of: 4, along: .horizontal)
+                .spacing(of: 4, along: .vertical)
+                .on {
+                    $0.md {
+                        $0.spacing(of: 4, along: .horizontal)
+                    }
+                }
             }
             .flex(direction: .column, justify: .between)
-            .padding(of: 8)
-            .background(color: .white())
+            .padding(of: 6)
+            .background(color: .stone(._100))
             .on {
                 $0.md {
-                    $0.flex(direction: .row, align: .center)
+                    $0.flex(direction: .row, align: .start)
                 }
             }
         }

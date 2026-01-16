@@ -21,6 +21,11 @@ struct PortfolioSite: Website {
             "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
         ]
     }
+    
+    var head: String? {
+        "<style>html, body { font-family: 'Space Grotesk'; }</style>"
+    }
+
 
     var routes: [any Document] {
         get throws {
