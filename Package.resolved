@@ -1,5 +1,5 @@
 {
-  "originHash" : "aa3f5afaa6742c4b2424350d76d13562552aaa0ec532d7879bd314cf4ff69f7f",
+  "originHash" : "6c6e1769d9f4dbcdc5d8388820c0738d321524ff18a1ea762fb8cc827dffb4d4",
   "pins" : [
     {
       "identity" : "swift-cmark",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "7d9a5ce307528578dfa777d505496bd5f544ad94",
         "version" : "0.7.3"
+      }
+    },
+    {
+      "identity" : "web-ui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mac9sb/web-ui",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1226b5bf49761017b1ef194c379ebf71a30d08bf"
       }
     }
   ],

@@ -28,7 +28,7 @@ struct Hero: Element {
             }
 
             Stack {
-                Text("OPERATIONAL PARAMETERS: SWIFT, SWIFTUI, COMBINE, HUMMINGBIRD, HTML, CSS, JS, POSIX SHELL, UNIX, GIT, DOCKER, SQL, CI/CD.")
+                Text("OPERATIONAL PARAMETERS: SWIFT, SWIFTUI, HUMMINGBIRD, HTML, CSS, JS, POSIX SHELL, UNIX, GIT, SQL, CI/CD.")
                     .font(size: .xs2, tracking: .wider, leading: .relaxed)
                     .opacity(90)
                     .frame(maxWidth: .xl)
@@ -49,6 +49,11 @@ struct Hero: Element {
                     .border(of: 1, at: .leading, color: .black(opacity: 20))
                     .spacing(of: 1, along: .vertical)
                     .padding(of: 4, at: .leading)
+                    .on {
+                        $0.md {
+                            $0.spacing(of: 0, along: .vertical) // MARK: Need a way to revert this to none;
+                        }
+                    }
                 }
                 .flex(direction: .row, align: .center)
                 .spacing(of: 4, along: .vertical)
@@ -58,12 +63,12 @@ struct Hero: Element {
                     }
                 }
             }
-            .flex(direction: .column, justify: .between)
+            .flex(direction: .column, justify: .between, align: .start)
             .padding(of: 6)
             .background(color: .stone(._100))
             .on {
                 $0.md {
-                    $0.flex(direction: .row, align: .start)
+                    $0.flex(direction: .row, align: .center)
                 }
             }
         }
