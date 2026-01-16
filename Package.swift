@@ -8,7 +8,7 @@ let package = Package(
         .macOS(.v15), .tvOS(.v13), .iOS(.v16), .watchOS(.v6), .visionOS(.v2),
     ],
     dependencies: [
-        .package(path: "../web-ui")
+        .package(url: "https://github.com/mac9sb/web-ui", branch: "main")
     ],
     targets: [
         .executableTarget(
