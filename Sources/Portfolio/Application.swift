@@ -13,6 +13,10 @@ struct PortfolioSite: Website {
         locale: .en,
         type: .website,
     )
+    
+    var baseWebAddress: String? {
+        "https://mac9sb.github.io/portfolio/"
+    }
 
     var metadata: Metadata { Self.baseMetadata }
 
