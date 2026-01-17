@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+    <loc>https://mac9sb.github.io/portfolio//index.html</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://mac9sb.github.io/portfolio//logs/optimizing-swift-arm.html</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://mac9sb.github.io/portfolio//logs/embedded-swift-industrial.html</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://mac9sb.github.io/portfolio//logs/full-stack-hummingbird.html</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://mac9sb.github.io/portfolio//logs/concurrency-swift-5-10.html</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://mac9sb.github.io/portfolio//logs/cli-argument-parser.html</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+</urlset>
