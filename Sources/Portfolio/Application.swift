@@ -2,7 +2,7 @@ import Foundation
 import WebUI
 
 @main
-struct PortfolioSite: Website {
+public struct Application: Website {
     nonisolated(unsafe) static let baseMetadata = Metadata(
         site: "Mac Long",
         title: "Welcome",
@@ -13,25 +13,20 @@ struct PortfolioSite: Website {
         locale: .en,
         type: .website,
     )
-    
-    var baseWebAddress: String? {
-        "https://mac9sb.github.io/portfolio/"
-    }
 
-    var metadata: Metadata { Self.baseMetadata }
+    public var metadata: Metadata { Self.baseMetadata }
 
-    var stylesheets: [String]? {
+    public var stylesheets: [String]? {
         [
             "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
         ]
     }
-    
-    var head: String? {
+
+    public var head: String? {
         "<style>html, body { font-family: 'Space Grotesk'; }</style>"
     }
 
-
-    var routes: [any Document] {
+    public var routes: [any Document] {
         get throws {
             var pages: [any Document] = [Home()]
 
@@ -58,8 +53,12 @@ struct PortfolioSite: Website {
             """
     }
 
-    static func main() throws {
-        try PortfolioSite().build(to: URL(filePath: ".output"))
-        print("Site built successfully to .output/")
+    static func main() async throws {
+        do {
+            try Application().build()
+            print("✓ Application built successfully.")
+        } catch {
+            print("⨉ Failed to build application: \(error)")
+        }
     }
 }

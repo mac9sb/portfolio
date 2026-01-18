@@ -17,5 +17,12 @@ struct LayoutSection: Element {
         .padding(of: 6)
         .background(color: .stone(._100))
         .border(of: 1, at: .bottom, color: .black())
+        .on {
+            $0.dark {
+                $0.background(color: .stone(._900))
+                $0.border(of: 1, at: .bottom, color: .stone(._700))
+                $0.font(color: .stone(._100))
+            }
+        }
     }
 }

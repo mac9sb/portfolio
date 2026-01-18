@@ -24,7 +24,12 @@ struct LogSection: Element {
             .addClass("logs-list")
             .flex(direction: .column)
             .border(of: 1, at: .top, color: .black())
-            .frame(minHeight: .custom("150px"))
+            .frame(minHeight: .custom("200px"))
+            .on {
+                $0.dark {
+                    $0.border(of: 1, at: .top, color: .stone(._700))
+                }
+            }
 
             Pagination(currentPage: 1, totalPages: totalPages, sectionId: "logs", itemsPerPage: itemsPerPage)
         }

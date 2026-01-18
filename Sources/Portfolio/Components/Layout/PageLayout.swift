@@ -27,10 +27,21 @@ struct PageLayout: Element {
             .background(color: .stone(._100))
             .shadow(size: .xl2)
             .frame(width: .full, maxWidth: .custom("1200px"))
+            .on {
+                $0.dark {
+                    $0.background(color: .stone(._900))
+                    $0.border(of: 1, at: .horizontal, color: .stone(._700))
+                }
+            }
         }
         .position(.relative)
         .frame(width: .full, minHeight: .viewport(.dynamicViewHeight))
         .flex(direction: .column, align: .center)
         .background(color: .stone(._100))
+        .on {
+            $0.dark {
+                $0.background(color: .stone(._900))
+            }
+        }
     }
 }

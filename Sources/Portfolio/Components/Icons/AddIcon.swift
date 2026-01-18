@@ -8,12 +8,14 @@ struct AddIcon: Element {
     }
 
     var body: some Markup {
-        Image(
-            source:
-                "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960' fill='currentColor'%3E%3Cpath d='M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z'/%3E%3C/svg%3E",
-            description: "Add icon",
-            type: .svg
-        )
+        Stack {
+            MarkupString(
+                content: """
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" style="width: 100%; height: 100%;">
+                        <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                    </svg>
+                    """)
+        }
         .frame(width: .spacing(size), height: .spacing(size))
     }
 }

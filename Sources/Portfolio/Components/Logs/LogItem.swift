@@ -11,8 +11,8 @@ struct LogItem: Element {
                     .frame(width: .spacing(16))
                     .transition(of: .colors, for: 200)
 
-                Text(log.title.uppercased())
-                    .font(size: .sm, weight: .bold, tracking: .wide)
+                Text(log.title)
+                    .font(size: .sm, weight: .bold, tracking: .wide, casing: .uppercase)
                     .flex(grow: .one)
                     .padding(of: 4, at: .trailing)
                     .transition(of: .all, for: 200)
@@ -34,9 +34,14 @@ struct LogItem: Element {
         .cursor(.pointer)
         .transition(of: .all, for: 200)
         .group()
+        .addClass("log-item")
         .on {
             $0.hover {
-                $0.background(color: .stone(._100))
+                $0.background(color: .stone(._200))
+            }
+            $0.dark {
+                $0.border(of: 1, at: .bottom, color: .stone(._700))
+                $0.font(color: .stone(._100))
             }
         }
     }

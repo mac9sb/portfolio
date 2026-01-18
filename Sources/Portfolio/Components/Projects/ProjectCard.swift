@@ -17,8 +17,8 @@ struct ProjectCard: Element {
                             }
                         }
 
-                    Text(project.description.uppercased())
-                        .font(size: .xs2, leading: .tight)
+                    Text(project.description)
+                        .font(size: .xs2, leading: .tight, casing: .uppercase)
                         .margins(of: 6, at: .bottom)
                         .opacity(80)
                         .transition(of: .all, for: 300)
@@ -54,6 +54,11 @@ struct ProjectCard: Element {
         .on {
             $0.hover {
                 $0.background(color: .black())
+                $0.font(color: .stone(._100))
+            }
+            $0.dark {
+                $0.background(color: .stone(._800))
+                $0.border(of: 1, color: .stone(._700))
                 $0.font(color: .stone(._100))
             }
         }

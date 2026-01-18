@@ -12,15 +12,20 @@ struct SectionHeader: Element {
         self.showTotal = showTotal
         self.totalCount = totalCount
     }
-///text-xs font-bold uppercase tracking-[0.2em] text-muted-teal
+
     var body: some Markup {
         Stack {
             Heading(.headline, "\(number) // \(label)")
                 .font(size: .xs2, weight: .light, tracking: .widest, color: .teal(._800))
+                .on {
+                    $0.dark {
+                        $0.font(color: .teal(._400))
+                    }
+                }
 
             if showTotal, let count = totalCount {
-                Text("TOTAL: \(count)")
-                    .font(size: .xs2, weight: .bold)
+                Text("total: \(count)")
+                    .font(size: .xs2, weight: .bold, casing: .uppercase)
                     .opacity(40)
             }
         }

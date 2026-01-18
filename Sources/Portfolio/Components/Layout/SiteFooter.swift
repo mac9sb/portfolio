@@ -32,8 +32,10 @@ struct SiteFooter: Element {
                 .flex(direction: .column, align: .center)
 
                 Stack {
-                    Text("ARCHITECTING SYSTEMS")
-                    Text("SINCE MMXVI")
+                    Text("architecting systems")
+                        .font(casing: .uppercase)
+                    Text("since mmxvi")
+                        .font(casing: .uppercase)
                 }
                 .flex(direction: .column)
                 .spacing(of: 1, along: .vertical)
@@ -51,8 +53,10 @@ struct SiteFooter: Element {
 
             Stack {
                 Stack {
-                    Text("SIGNAL PROTOCOL: ENCRYPTED")
-                    Text("STATUS: STABLE // OPERATIONAL")
+                    Text("signal protocol: encrypted")
+                        .font(casing: .uppercase)
+                    Text("status: stable // operational")
+                        .font(casing: .uppercase)
                 }
                 .flex(direction: .column)
                 .spacing(of: 1, along: .vertical)
@@ -64,8 +68,8 @@ struct SiteFooter: Element {
                 }
 
                 Stack {
-                    Text("© \(currentYear) MAC LONG")
-                        .font(size: .xs2, tracking: .widest, color: .zinc(._500))
+                    Text("© \(currentYear) mac long")
+                        .font(size: .xs2, tracking: .widest, color: .zinc(._500), casing: .uppercase)
                     Stack {
                         Stack {}
                             .frame(width: .fraction(1, 2), height: .full)
@@ -96,7 +100,6 @@ struct SiteFooter: Element {
                 }
             }
         }
-        .border(of: 1, at: .top, color: .black())
         .padding(of: 6)
         .background(color: .black())
         .font(color: .stone(._100))
