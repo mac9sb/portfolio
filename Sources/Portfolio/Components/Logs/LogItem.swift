@@ -11,7 +11,7 @@ struct LogItem: Element {
                     .frame(width: .spacing(16))
                     .transition(of: .colors, for: 200)
 
-                Text(log.title)
+                Text(log.title.replacingOccurrences(of: "**", with: ""))
                     .font(size: .sm, weight: .bold, tracking: .wide, casing: .uppercase)
                     .flex(grow: .one)
                     .padding(of: 4, at: .trailing)
@@ -20,6 +20,7 @@ struct LogItem: Element {
                     .on {
                         $0.groupHover {
                             $0.padding(of: 2, at: .leading)
+                						$0.border(of: 2, at: .leading, color: .pink(._400))
                         }
                     }
 

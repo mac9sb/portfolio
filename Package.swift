@@ -16,6 +16,7 @@ let package = Package(
             dependencies: [
                 .product(name: "WebUI", package: "web-ui"),
                 .product(name: "WebUIMarkdown", package: "web-ui"),
+                .product(name: "WebUITypst", package: "web-ui"),
             ],
             resources: [
                 .copy("Content")

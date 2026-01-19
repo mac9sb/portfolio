@@ -1,11 +1,11 @@
 ---
-title: Creating GUEST-LIST: Digital Venue Management
+title: Creating Guest List: Digital Venue Management
 date: January 18, 2025
 ---
 
-GUEST-LIST is a full-stack Swift application for digital guest list management at concert and gig venues. Built with Hummingbird backend, Web-UI frontend, and Fluent ORM, this system demonstrates modern Swift web development practices for real-world business applications.
+Guest List is a full-stack Swift application for digital guest list management at concert and gig venues. Built with Hummingbird backend, WebUI frontend, and Fluent ORM, this system demonstrates modern Swift web development practices for real-world business applications.
 
-## The Problem GUEST-LIST Solves
+== The Problem Guest List Solves
 
 Traditional venue guest list management relies on paper lists, spreadsheets, and manual coordination. This leads to:
 - **Lost or damaged lists** during busy events
@@ -14,11 +14,11 @@ Traditional venue guest list management relies on paper lists, spreadsheets, and
 - **No real-time visibility** into attendance and capacity
 - **Inefficient check-in processes** causing long lines
 
-## System Architecture
+== System Architecture
 
-GUEST-LIST uses a clean separation between domain models, services, and API endpoints.
+Guest List uses a clean separation between domain models, services, and API endpoints.
 
-### Domain Models
+=== Domain Models
 
 ```swift
 // Core business entities
@@ -44,7 +44,7 @@ enum EventStatus {
 }
 ```
 
-### Service Layer
+=== Service Layer
 
 Business logic is encapsulated in actor-based services:
 
@@ -72,7 +72,7 @@ actor EventService {
 }
 ```
 
-### API Layer
+=== API Layer
 
 Hummingbird provides type-safe REST endpoints:
 
@@ -100,9 +100,9 @@ struct EventController {
 }
 ```
 
-## Real-Time Features
+== Real-Time Features
 
-### WebSocket Updates
+=== WebSocket Updates
 
 Door staff see real-time updates as guests arrive:
 
@@ -128,7 +128,7 @@ actor NotificationService {
 }
 ```
 
-### Mobile Check-In App
+=== Mobile Check-In App
 
 iOS/macOS apps provide offline-capable check-in:
 
@@ -155,7 +155,7 @@ class CheckInViewModel: ObservableObject {
 }
 ```
 
-## Concurrency Patterns
+== Concurrency Patterns
 
 The application uses Swift's structured concurrency throughout:
 
@@ -177,9 +177,9 @@ func processBulkCheckIn(guestIDs: [UUID], eventID: UUID) async throws -> [GuestL
 }
 ```
 
-## Type Safety Across Layers
+== Type Safety Across Layers
 
-FLUENT-GEN ensures type safety from domain models to database:
+FluentGen ensures type safety from domain models to database:
 
 ```swift
 // Domain model defines the API contract
@@ -210,12 +210,12 @@ final class EventModel: Model {
 }
 ```
 
-## Deployment and Scaling
+== Deployment and Scaling
 
-### Docker Deployment
+=== Docker Deployment
 
 ```yaml
-# docker-compose.yml
+= docker-compose.yml
 version: '3.8'
 services:
   guest-list:
@@ -233,7 +233,7 @@ services:
       - POSTGRES_DB=guestlist
 ```
 
-### Health Monitoring
+=== Health Monitoring
 
 Built-in health checks ensure system reliability:
 
@@ -254,9 +254,9 @@ struct HealthController {
 }
 ```
 
-## Why Swift for Web Applications?
+== Why Swift for Web Applications?
 
-GUEST-LIST demonstrates Swift's strengths in web development:
+Guest List demonstrates Swift's strengths in web development:
 
 - **Type safety** prevents common web application bugs
 - **Performance** comparable to Node.js with better memory safety
@@ -264,18 +264,18 @@ GUEST-LIST demonstrates Swift's strengths in web development:
 - **Modern concurrency** with structured concurrency and actors
 - **Rich ecosystem** with Hummingbird, Fluent, and Vapor packages
 
-## Business Impact
+== Business Impact
 
-GUEST-LIST has been used successfully at multiple venues, providing:
+Guest List has been used successfully at multiple venues, providing:
 - **60% faster check-in times** compared to paper lists
 - **Real-time capacity monitoring** preventing overselling
 - **Accurate attendance tracking** for business analytics
 - **Mobile accessibility** for staff coordination
 
-## Learn More
+== Learn More
 
 For the complete implementation with authentication, admin dashboard, and advanced features:
 
-[🔗 View GUEST-LIST on GitHub](https://github.com/mac9sb/guest-list)
+[🔗 View Guest List on GitHub](https://github.com/mac9sb/guest-list)
 
 This project showcases how Swift can be used to build production-ready, type-safe web applications that solve real business problems in the events industry.

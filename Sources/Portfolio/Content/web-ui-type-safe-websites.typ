@@ -1,11 +1,11 @@
 ---
-title: Building WEB-UI: Type-Safe Website Generation
+title: Building WebUI: Type-Safe Website Generation
 date: January 18, 2025
 ---
 
-WEB-UI is a Swift library for generating websites in a type-safe, consistent manner. It supports both Static Site Generation (SSG) and Server-Side Rendering (SSR) approaches, providing a modern alternative to traditional HTML templating.
+WebUI is a Swift library for generating websites in a type-safe, consistent manner. It supports both Static Site Generation (SSG) and Server-Side Rendering (SSR) approaches, providing a modern alternative to traditional HTML templating.
 
-## The Problem WEB-UI Solves
+== The Problem WebUI Solves
 
 Traditional web development with HTML templates suffers from:
 - **Runtime errors** from malformed HTML or invalid attributes
@@ -14,24 +14,28 @@ Traditional web development with HTML templates suffers from:
 - **Limited type safety** in dynamic content rendering
 - **Verbose boilerplate** for common UI patterns
 
-## Type-Safe HTML Generation
+== Type-Safe HTML Generation
 
-WEB-UI uses Swift's type system to generate valid HTML at compile time:
+WebUI uses Swift's type system to generate valid HTML at compile time:
 
+```html
+<!-- Traditional HTML template (error-prone) -->
+<div class="card">
+  <h2>Hardcoded Title</h2>
+  <p>Hardcoded description.</p>
+</div>
+```
 ```swift
-// Traditional HTML template (error-prone)
-"<div class='card'><h2>\(title)</h2><p>\(description)</p></div>"
-
-// WEB-UI approach (type-safe)
+// WebUI approach (type-safe)
 Card {
     Heading(.h2, title)
-    Paragraph(description)
+    Text(description)
 }
 ```
 
-## Core Concepts
+== Core Concepts
 
-### Elements and Modifiers
+=== Elements and Modifiers
 
 Every HTML element is represented as a Swift type:
 
@@ -46,7 +50,7 @@ struct Card: Element {
                 .font(weight: .semibold)
                 .margins(of: 4, at: .bottom)
 
-            Paragraph(description)
+            Text(description)
                 .font(color: .stone(._600))
         }
         .padding(of: 6)
@@ -58,7 +62,7 @@ struct Card: Element {
 }
 ```
 
-### Responsive Design
+=== Responsive Design
 
 Built-in responsive breakpoints make mobile-first design natural:
 
@@ -74,7 +78,7 @@ struct HeroSection: Element {
                         $0.sm { $0.font(size: .xl2) }  // Mobile
                     }
 
-                Paragraph("Build amazing websites with Swift")
+                Text("Build amazing websites with Swift")
                     .font(size: .lg)
                     .textAlign(.center)
                     .maxWidth(.xl3)
@@ -89,7 +93,7 @@ struct HeroSection: Element {
 }
 ```
 
-## Static Site Generation
+== Static Site Generation
 
 Generate complete websites at build time:
 
@@ -99,7 +103,7 @@ struct MyWebsite: Website {
     var metadata: Metadata {
         Metadata(
             title: "My Website",
-            description: "Built with WEB-UI"
+            description: "Built with WebUI"
         )
     }
 
@@ -139,7 +143,7 @@ struct HomePage: Document {
 }
 ```
 
-## Server-Side Rendering
+== Server-Side Rendering
 
 Render pages dynamically on the server:
 
@@ -177,7 +181,7 @@ struct BlogPostPage: Element {
 }
 ```
 
-## Component Composition
+== Component Composition
 
 Build complex UIs from reusable components:
 
@@ -192,7 +196,7 @@ struct BlogCard: Element {
                     .font(weight: .semibold)
                     .lineClamp(2)
 
-                Paragraph(post.excerpt)
+                Text(post.excerpt)
                     .font(size: .sm, color: .stone(._600))
                     .lineClamp(3)
 
@@ -230,9 +234,9 @@ struct BlogGrid: Element {
 }
 ```
 
-## CSS Generation
+== CSS Generation
 
-WEB-UI can generate optimized CSS alongside HTML:
+WebUI can generate optimized CSS alongside HTML:
 
 ```swift
 struct AppStyles {
@@ -274,42 +278,42 @@ struct AppStyles {
 }
 ```
 
-## Why Swift for Web Development?
+== Why Swift for Web Development?
 
-WEB-UI demonstrates several advantages of using Swift for web development:
+WebUI demonstrates several advantages of using Swift for web development:
 
-### Type Safety
+=== Type Safety
 - **Compile-time validation** of HTML structure and attributes
 - **No runtime HTML errors** from malformed markup
 - **Strong typing** for component props and state
 
-### Developer Experience
+=== Developer Experience
 - **IntelliSense** and autocomplete for all HTML/CSS properties
 - **Refactoring safety** - rename a component and all usages update
 - **Modern language features** - enums, generics, protocols
 
-### Performance
+=== Performance
 - **Zero runtime overhead** for static generation
 - **Optimized CSS** with automatic deduplication
 - **Tree-shaking** removes unused styles automatically
 
-### Consistency
+=== Consistency
 - **Design system enforcement** through types
 - **Responsive design** built into the component API
 - **Accessibility** features built-in (ARIA attributes, semantic HTML)
 
-## Real-World Usage
+== Real-World Usage
 
-WEB-UI powers this portfolio site and has been used in production applications. It provides:
+WebUI powers this portfolio site and has been used in production applications. It provides:
 - **50% less code** compared to traditional HTML templating
 - **Zero HTML validation errors** in generated output
 - **Consistent design** across all pages and components
 - **Easy maintenance** through type-safe refactoring
 
-## Learn More
+== Learn More
 
 For comprehensive documentation, component library, and examples:
 
-[🔗 View WEB-UI on GitHub](https://github.com/mac9sb/web-ui)
+[🔗 View WebUI on GitHub](https://github.com/mac9sb/web-ui)
 
-WEB-UI transforms web development from error-prone string manipulation into a type-safe, maintainable coding experience that leverages Swift's powerful language features.
+WebUI transforms web development from error-prone string manipulation into a type-safe, maintainable coding experience that leverages Swift's powerful language features.

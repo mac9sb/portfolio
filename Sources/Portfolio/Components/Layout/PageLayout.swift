@@ -30,7 +30,9 @@ struct PageLayout: Element {
             .on {
                 $0.dark {
                     $0.background(color: .stone(._900))
-                    $0.border(of: 1, at: .horizontal, color: .stone(._700))
+                    $0.sm {
+                        $0.border(of: 1, at: .horizontal, color: .stone(._700))
+                    }
                 }
             }
         }

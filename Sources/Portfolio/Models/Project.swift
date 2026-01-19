@@ -8,12 +8,12 @@ struct Project: Sendable {
 }
 
 let projects: [Project] = [
-    Project(
-        id: "1",
-        title: "POCKET-PULSE",
-        description: "An open-source communication device for long-distance relationships, built with Embedded Swift. Sends pulses via Bluetooth or MQTT over Wi-Fi 6.",
-        url: "https://github.com/mac9sb/pocket-pulse"
-    ),
+//    Project(
+//        id: "1",
+//        title: "POCKET-PULSE",
+//        description: "An open-source communication device for long-distance relationships, built with Embedded Swift. Sends pulses via Bluetooth or MQTT over Wi-Fi 6.",
+//        url: "https://github.com/mac9sb/pocket-pulse"
+//    ),
     Project(
         id: "2",
         title: "FLUENT-GEN",

@@ -1,11 +1,11 @@
 ---
-title: Recreating LIST: Modern File Listing Tool
+title: Recreating Swift List: Modern File Listing Tool
 date: January 18, 2025
 ---
 
-LIST is a modern, fast rebuild of the classic UNIX `ls` command. Built with Swift and ArgumentParser, it provides enhanced file listing with colors, icons, and human-readable output while maintaining full compatibility with traditional `ls` usage patterns.
+Swift List is a modern, fast rebuild of the classic UNIX `ls` command. Built with Swift and ArgumentParser, it provides enhanced file listing with colors, icons, and human-readable output while maintaining full compatibility with traditional `ls` usage patterns.
 
-## The Problem LIST Solves
+== The Problem Swift List Solves
 
 The classic `ls` command, while powerful, has several limitations:
 - **No color output** by default (requires additional configuration)
@@ -14,9 +14,9 @@ The classic `ls` command, while powerful, has several limitations:
 - **Inconsistent output** across different systems
 - **Limited customization** options
 
-## Core Command Structure
+== Core Command Structure
 
-LIST uses Swift's ArgumentParser for robust CLI handling:
+Swift List uses Swift's ArgumentParser for robust CLI handling:
 
 ```swift
 import ArgumentParser
@@ -51,9 +51,9 @@ struct List: ParsableCommand {
 }
 ```
 
-## File System Abstraction
+== File System Abstraction
 
-LIST abstracts file system operations for testability and platform independence:
+Swift List abstracts file system operations for testability and platform independence:
 
 ```swift
 protocol FileSystem {
@@ -81,7 +81,7 @@ struct DefaultFileSystem: FileSystem {
 }
 ```
 
-## Display Formatting
+== Display Formatting
 
 Intelligent formatting adapts to different output requirements:
 
@@ -115,12 +115,12 @@ struct FileDisplay {
             let name = formatName(file.name, options: options)
 
             return "\(permissions) \(size) \(date) \(name)"
-        }.joined(separator: "\n")
+        }.joined(separator: "")
     }
 }
 ```
 
-## Color and Icon Support
+== Color and Icon Support
 
 Visual enhancements make output more scannable:
 
@@ -162,9 +162,10 @@ struct TerminalColor {
         "\(color)\(text)\(reset)"
     }
 }
+}
 ```
 
-## Size Formatting
+== Size Formatting
 
 Human-readable file sizes prevent confusion:
 
@@ -191,9 +192,9 @@ func formatSize(_ bytes: Int64) -> String {
 // 1.8MB instead of 1800000
 ```
 
-## Performance Optimizations
+== Performance Optimizations
 
-LIST is designed for speed even with large directories:
+Swift List is designed for speed even with large directories:
 
 ```swift
 // Concurrent file processing for large directories
@@ -218,9 +219,9 @@ func processLargeDirectory(_ directory: URL, options: DisplayOptions) async thro
 }
 ```
 
-## Cross-Platform Compatibility
+== Cross-Platform Compatibility
 
-LIST works consistently across macOS, Linux, and Windows:
+Swift List works consistently across macOS, Linux, and Windows:
 
 ```swift
 struct FileInfo {
@@ -235,7 +236,7 @@ struct FileInfo {
         self.url = url
         self.name = url.lastPathComponent
 
-        #if os(macOS) || os(iOS)
+=== os(macOS) || os(iOS)
         let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
         self.size = attributes[.size] as? Int64 ?? 0
         self.modificationDate = attributes[.modificationDate] as? Date ?? Date.distantPast
@@ -251,7 +252,7 @@ struct FileInfo {
 }
 ```
 
-## Testing Strategy
+== Testing Strategy
 
 Comprehensive testing ensures reliability:
 
@@ -286,9 +287,9 @@ class ListCommandTests: XCTestCase {
 }
 ```
 
-## Why Swift for CLI Tools?
+== Why Swift for CLI Tools?
 
-LIST demonstrates Swift's strengths for command-line applications:
+Swift List demonstrates Swift's strengths for command-line applications:
 
 - **Type safety** prevents common CLI parsing errors
 - **Rich ecosystem** with ArgumentParser and System frameworks
@@ -296,38 +297,38 @@ LIST demonstrates Swift's strengths for command-line applications:
 - **Performance** competitive with C implementations
 - **Modern language features** make code maintainable
 
-## Usage Examples
+== Usage Examples
 
 ```bash
-# Basic listing
+= Basic listing
 sls
 
-# Long format with colors and icons
+= Long format with colors and icons
 sls -l --color --icons
 
-# Show all files with human-readable sizes
+= Show all files with human-readable sizes
 sls -a --human-readable
 
-# List multiple directories
+= List multiple directories
 sls ~/Documents ~/Downloads
 
-# One file per line (for scripting)
+= One file per line (for scripting)
 sls --one-line
 ```
 
-## Performance Comparison
+== Performance Comparison
 
-LIST matches or exceeds traditional `ls` performance:
+Swift List matches or exceeds traditional `ls` performance:
 
 - **Memory efficient** - processes files on-demand
 - **Fast startup** - minimal initialization overhead
 - **Scalable** - handles directories with thousands of files
 - **Low CPU usage** - efficient algorithms and data structures
 
-## Learn More
+== Learn More
 
 For complete source code, advanced features, and installation instructions:
 
-[🔗 View LIST on GitHub](https://github.com/mac9sb/list)
+[🔗 View Swift List on GitHub](https://github.com/mac9sb/list)
 
-LIST shows how Swift can be used to build modern, user-friendly command-line tools that improve upon classic UNIX utilities while maintaining backward compatibility.
+Swift List shows how Swift can be used to build modern, user-friendly command-line tools that improve upon classic UNIX utilities while maintaining backward compatibility.

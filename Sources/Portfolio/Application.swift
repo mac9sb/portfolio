@@ -1,5 +1,6 @@
 import Foundation
 import WebUI
+import WebUITypst
 
 @main
 public struct Application: Website {
@@ -11,19 +12,23 @@ public struct Application: Website {
         author: "Mac Long",
         keywords: ["Swift", "SwiftUI", "Hummingbird", "iOS", "macOS", "Full Stack", "POSIX", "UNIX"],
         locale: .en,
-        type: .website,
+        type: .website
     )
 
     public var metadata: Metadata { Self.baseMetadata }
 
     public var stylesheets: [String]? {
         [
-            "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
+            "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap",
+            "/styles/typst.css",
+            "/styles/article.css"
         ]
     }
 
-    public var head: String? {
-        "<style>html, body { font-family: 'Space Grotesk'; }</style>"
+    public var scripts: [Script]? {
+        [
+            Script(src: "/scripts/typst.js", attribute: .defer)
+        ]
     }
 
     public var routes: [any Document] {
@@ -31,29 +36,105 @@ public struct Application: Website {
             var pages: [any Document] = [Home()]
 
             for log in logs {
-                let content = loadMarkdownContent(for: log.slug)
-                pages.append(ArticlePage(log: log, markdownContent: content))
+                let rendered = renderTypstContent(for: log.slug)
+                pages.append(ArticlePage(log: log, renderedHTML: rendered))
             }
-
             return pages
         }
     }
 
-    private func loadMarkdownContent(for slug: String) -> String {
-        let contentPath = "Sources/Portfolio/Content/\(slug).md"
+    private let typst: WebUITypst
 
-        if let content = try? String(contentsOfFile: contentPath, encoding: .utf8) {
-            return content
+    public init() {
+        let typography = TypstTypography()
+            .withHeadings { heading in
+                heading.fontFamily = "'Space Grotesk', sans-serif"
+                heading.baseFontSize = "1.5rem"
+                heading.fontWeight = "600"
+                heading.color = "#111817"
+                heading.darkColor = "#ffffff"
+                heading.marginTop = "2.5rem"
+                heading.marginBottom = "1rem"
+            }
+            .withParagraphs { paragraph in
+                paragraph.marginBottom = "1.5rem"
+                paragraph.lineHeight = "1.6"
+                paragraph.color = "#111817"
+                paragraph.darkColor = "#e5e7eb"
+            }
+            .withInlineCode { inlineCode in
+                inlineCode.fontFamily = "ui-monospace, SFMono-Regular, monospace"
+                inlineCode.backgroundColor = "#e5e7eb"
+                inlineCode.darkBackgroundColor = "#1f2937"
+                inlineCode.color = "#14b8aa"
+                inlineCode.padding = "0.2em 0.4em"
+                inlineCode.borderRadius = "0.25rem"
+                inlineCode.fontSize = "0.875em"
+            }
+            .withBlockquotes { blockquote in
+                blockquote.borderLeft = "3px solid #14b8aa"
+                blockquote.paddingLeft = "1.5rem"
+                blockquote.color = "#4b5563"
+                blockquote.darkColor = "#9ca3af"
+                blockquote.fontStyle = "italic"
+            }
+            .withLinks { link in
+                link.color = "#14b8aa"
+                link.darkColor = "#14b8aa"
+                link.textDecoration = "none"
+                link.hoverTextDecoration = "underline"
+            }
+            .withLists { list in
+                list.paddingLeft = "1.5rem"
+                list.itemMarginBottom = "0.75rem"
+            }
+            .withTables { table in
+                table.borderColor = "#111817"
+                table.darkBorderColor = "#111817"
+                table.cellPadding = "0.75rem 1rem"
+                table.headerBackgroundColor = "#111817"
+                table.darkHeaderBackgroundColor = "#111817"
+                table.headerColor = "#ffffff"
+                table.darkHeaderColor = "#ffffff"
+                table.headerFontWeight = "600"
+            }
+            .withSyntaxHighlighting { syntax in
+                syntax.keyword = "#14b8aa"
+                syntax.string = "#fca5a5"
+                syntax.comment = "#6b7280"
+                syntax.number = "#60a5fa"
+                syntax.function = "#14b8aa"
+                syntax.type = "#f472b6"
+                syntax.operator = "#ffffff"
+                syntax.property = "#14b8aa"
+                syntax.variable = "#ffffff"
+                syntax.punctuation = "#ffffff"
+            }
+            .withClassPrefix("typst-")
+
+        self.typst = WebUITypst(typography: typography)
+    }
+
+    private func renderTypstContent(for slug: String) -> String {
+        let contentPath = "Sources/Portfolio/Content/\(slug).typ"
+
+        guard let content = try? String(contentsOfFile: contentPath, encoding: .utf8) else {
+            return "<p>Coming Soon</p><p>This article is currently being written. Check back later for the full content.</p>"
         }
 
-        return """
-            # Coming Soon
-
-            This article is currently being written. Check back later for the full content.
-            """
+        do {
+            let result = try typst.renderSync(content)
+            return result.htmlContent
+        } catch {
+            return "<p>Error rendering content: \(error)</p>"
+        }
     }
 
     static func main() async throws {
+        // Generate Typst assets
+        let typst = Application().typst
+        try typst.generateAssets(in: URL(filePath: "Public"))
+
         do {
             try Application().build()
             print("✓ Application built successfully.")
