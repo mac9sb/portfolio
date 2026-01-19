@@ -143,6 +143,9 @@ struct Home: Document {
                                 }
                             });
                         }
+
+                        // Initialize first page
+                        showPage(1);
                     }
 
                     setupPagination('projects', 'project-item', 4);
