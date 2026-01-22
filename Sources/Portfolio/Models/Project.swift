@@ -1,5 +1,9 @@
 import Foundation
 
+/// Represents a project showcased in the portfolio.
+///
+/// Contains project metadata including title, description, and GitHub URL
+/// for display on the portfolio website.
 struct Project: Sendable {
     let id: String
     let title: String
@@ -8,12 +12,6 @@ struct Project: Sendable {
 }
 
 let projects: [Project] = [
-//    Project(
-//        id: "1",
-//        title: "POCKET-PULSE",
-//        description: "An open-source communication device for long-distance relationships, built with Embedded Swift. Sends pulses via Bluetooth or MQTT over Wi-Fi 6.",
-//        url: "https://github.com/mac9sb/pocket-pulse"
-//    ),
     Project(
         id: "2",
         title: "FLUENT-GEN",

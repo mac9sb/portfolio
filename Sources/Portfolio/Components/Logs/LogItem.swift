@@ -20,7 +20,7 @@ struct LogItem: Element {
                     .on {
                         $0.groupHover {
                             $0.padding(of: 2, at: .leading)
-                						$0.border(of: 2, at: .leading, color: .pink(._400))
+                            $0.border(of: 2, at: .leading, color: .pink(._400))
                         }
                     }
 
@@ -41,7 +41,7 @@ struct LogItem: Element {
                 $0.background(color: .stone(._200))
             }
             $0.dark {
-                $0.border(of: 1, at: .bottom, color: .stone(._700))
+                $0.border(of: 1, at: .bottom, color: .stone(._800))
                 $0.font(color: .stone(._100))
             }
         }

@@ -1,5 +1,9 @@
 import Foundation
 
+/// Represents a blog post or log entry in the portfolio.
+///
+/// Contains metadata about an article including its title, publication date,
+/// URL slug, and category.
 struct LogEntry: Sendable {
     let id: String
     let date: String

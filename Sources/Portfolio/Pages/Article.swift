@@ -34,29 +34,29 @@ struct ArticleContent: Element {
 
     private func buildArticleHTML() -> String {
         let cleanTitle = self.log.title.replacingOccurrences(of: "**", with: "")
-        let titleComponents = cleanTitle.components(separatedBy: ": ") // Use ": " for splitting
+        let titleComponents = cleanTitle.components(separatedBy: ": ")  // Use ": " for splitting
         let mainTitle = titleComponents.first?.trimmingCharacters(in: .whitespaces) ?? cleanTitle
         let subtitle = titleComponents.dropFirst().first?.trimmingCharacters(in: .whitespaces)
 
         var html = """
-        <div class="article-container">
-            <div class="article-header-section">
-                <h1 class="article-header-title">
-                    \(mainTitle)
-        """
+            <div class="article-container">
+                <div class="article-header-section">
+                    <h1 class="article-header-title">
+                        \(mainTitle)
+            """
         if let subtitle = subtitle {
             html += "<br/><span class=\"article-header-subtitle\">\(subtitle)</span>"
         }
         html += """
-                </h1>
-            </div>
+                    </h1>
+                </div>
 
-            <div class="article-meta-info">
-                <span class="article-category">\(self.log.category)</span>
-                <span class="article-published">PUBLISHED // \(self.log.date)</span>
-            </div>
+                <div class="article-meta-info">
+                    <span class="article-category">\(self.log.category)</span>
+                    <span class="article-published">PUBLISHED // \(self.log.date)</span>
+                </div>
 
-        """
+            """
 
         var remainingHTML = self.renderedHTML
         if let firstParagraph = remainingHTML.extractFirstParagraph() {
@@ -65,38 +65,38 @@ struct ArticleContent: Element {
         }
 
         html += """
-            \(remainingHTML)
-        </div>
-        <script>
-        (function() {
-            const copyButtons = document.querySelectorAll('.typst-copy-btn');
-            copyButtons.forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const wrapper = this.closest('.typst-code-wrapper');
-                    if (!wrapper) return;
-                    
-                    const codeLines = wrapper.querySelectorAll('.typst-code-line code');
-                    let text = '';
-                    codeLines.forEach(function(line, index) {
-                        text += line.textContent;
-                        if (index < codeLines.length - 1) text += '\\n';
-                    });
-                    
-                    navigator.clipboard.writeText(text).then(function() {
-                        const originalHTML = btn.innerHTML;
-                        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                        setTimeout(function() {
-                            btn.innerHTML = originalHTML;
-                        }, 2000);
-                    }).catch(function(err) {
-                        console.error('Copy failed:', err);
+                \(remainingHTML)
+            </div>
+            <script>
+            (function() {
+                const copyButtons = document.querySelectorAll('.typst-copy-btn');
+                copyButtons.forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const wrapper = this.closest('.typst-code-wrapper');
+                        if (!wrapper) return;
+                        
+                        const codeLines = wrapper.querySelectorAll('.typst-code-line code');
+                        let text = '';
+                        codeLines.forEach(function(line, index) {
+                            text += line.textContent;
+                            if (index < codeLines.length - 1) text += '\\n';
+                        });
+                        
+                        navigator.clipboard.writeText(text).then(function() {
+                            const originalHTML = btn.innerHTML;
+                            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                            setTimeout(function() {
+                                btn.innerHTML = originalHTML;
+                            }, 2000);
+                        }).catch(function(err) {
+                            console.error('Copy failed:', err);
+                        });
                     });
                 });
-            });
-        })();
-        </script>
-        """
+            })();
+            </script>
+            """
         return html
     }
 }

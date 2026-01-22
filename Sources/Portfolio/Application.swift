@@ -2,6 +2,11 @@ import Foundation
 import WebUI
 import WebUITypst
 
+/// Main portfolio website application.
+///
+/// Generates a static portfolio site with blog posts, project listings, and
+/// Typst-rendered content. Uses WebUI for type-safe HTML generation and
+/// WebUITypst for rendering Typst content.
 @main
 public struct Application: Website {
     nonisolated(unsafe) static let baseMetadata = Metadata(
@@ -12,7 +17,7 @@ public struct Application: Website {
         author: "Mac Long",
         keywords: ["Swift", "SwiftUI", "Hummingbird", "iOS", "macOS", "Full Stack", "POSIX", "UNIX"],
         locale: .en,
-        type: .website
+        type: .website,
     )
 
     public var metadata: Metadata { Self.baseMetadata }
@@ -21,7 +26,7 @@ public struct Application: Website {
         [
             "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap",
             "/styles/typst.css",
-            "/styles/article.css"
+            "/styles/article.css",
         ]
     }
 
@@ -45,6 +50,10 @@ public struct Application: Website {
 
     private let typst: WebUITypst
 
+    /// Creates a new portfolio application instance.
+    ///
+    /// Initializes the Typst renderer with custom typography styling for
+    /// consistent article rendering.
     public init() {
         let typography = TypstTypography()
             .withHeadings { heading in
@@ -115,6 +124,13 @@ public struct Application: Website {
         self.typst = WebUITypst(typography: typography)
     }
 
+    /// Renders Typst content for a given article slug.
+    ///
+    /// Loads the Typst source file and renders it to HTML using the configured
+    /// Typst renderer.
+    ///
+    /// - Parameter slug: The article slug (filename without extension).
+    /// - Returns: Rendered HTML content, or an error message if rendering fails.
     private func renderTypstContent(for slug: String) -> String {
         let contentPath = "Sources/Portfolio/Content/\(slug).typ"
 
@@ -130,6 +146,12 @@ public struct Application: Website {
         }
     }
 
+    /// Main entry point for building the static site.
+    ///
+    /// Generates Typst assets and builds the complete static website to the
+    /// output directory.
+    ///
+    /// - Throws: An error if asset generation or site building fails.
     static func main() async throws {
         // Generate Typst assets
         let typst = Application().typst
