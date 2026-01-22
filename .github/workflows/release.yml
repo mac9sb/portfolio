@@ -18,17 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract Swift version
-        id: swift-version
-        run: |
-          VERSION=$(grep -m1 'swift-tools-version' Package.swift | sed 's/.*: *//' | tr -d ' ')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Swift version: $VERSION"
-
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2
         with:
-          swift-version: ${{ steps.swift-version.outputs.version }}
+          swift-version: "6.2"
 
       - name: Cache Swift toolchain
         uses: actions/cache@v4
@@ -36,17 +29,17 @@ jobs:
           path: |
             ~/.swift
             /usr/local/swift
-          key: swift-${{ steps.swift-version.outputs.version }}-linux-x86_64
+          key: swift-6.2-linux-x86_64
           restore-keys: |
-            swift-${{ steps.swift-version.outputs.version }}-linux-
+            swift-6.2-linux-
 
       - name: Cache SPM dependencies
         uses: actions/cache@v4
         with:
           path: .build
-          key: spm-${{ hashFiles('**/Package.resolved') }}-linux-x86_64-${{ steps.swift-version.outputs.version }}
+          key: spm-${{ hashFiles('**/Package.resolved') }}-linux-x86_64-6.2
           restore-keys: |
-            spm-linux-x86_64-${{ steps.swift-version.outputs.version }}-
+            spm-linux-x86_64-6.2-
             spm-linux-x86_64-
 
       - name: Generate Changelog
