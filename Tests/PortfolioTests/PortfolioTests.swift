@@ -10,21 +10,21 @@ struct PortfolioTests {
         let app = Application()
         #expect(app.metadata.site == "Mac Long")
     }
-    
+
     @Test("Application has routes")
     func testApplicationHasRoutes() throws {
         let app = Application()
         let routes = try app.routes
         #expect(!routes.isEmpty)
     }
-    
+
     @Test("Application has stylesheets")
     func testApplicationHasStylesheets() {
         let app = Application()
         #expect(app.stylesheets != nil)
         #expect(app.stylesheets?.contains("/styles/typst.css") == true)
     }
-    
+
     @Test("Application has scripts")
     func testApplicationHasScripts() {
         let app = Application()
