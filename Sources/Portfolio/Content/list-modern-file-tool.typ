@@ -299,7 +299,7 @@ Swift List demonstrates Swift's strengths for command-line applications:
 
 == Usage Examples
 
-```bash
+```sh
 = Basic listing
 sls
 

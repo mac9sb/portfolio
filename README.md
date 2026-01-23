@@ -21,20 +21,20 @@ This portfolio site is generated as a static website using:
 
 1. Clone the repository:
 
-```bash
+```sh
 git clone https://github.com/mac9sb/portfolio.git
 cd portfolio
 ```
 
 2. Build the project:
 
-```bash
+```sh
 swift build -c release
 ```
 
 3. Generate the static site:
 
-```bash
+```sh
 swift run Portfolio
 ```
 
@@ -44,7 +44,7 @@ The site will be generated in the `.output` directory.
 
 To preview the site locally, you can use any static file server:
 
-```bash
+```sh
 # Using Python
 cd .output
 python3 -m http.server 8000
