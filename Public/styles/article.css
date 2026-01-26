@@ -13,11 +13,13 @@ body {
     max-width: 680px;
     margin: 0 auto;
     background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 720px) {
     .article-container {
-        padding: 0 1.25rem;
+        padding: 0 clamp(1.5rem, 6vw, 2.5rem);
     }
 }
 

@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tuist/Noora.git",
       "state" : {
-        "revision" : "c554521d3723d65fc2945f05150107cc8b2974ec",
-        "version" : "0.53.0"
+        "revision" : "bf2222995703f2a2500a2bbb8153fdb5d3a851ed",
+        "version" : "0.54.0"
       }
     },
     {
