@@ -40,7 +40,7 @@ struct ArticlePage: Document {
 
     /// State machines used by article pages (e.g. copy buttons).
     var stateMachineSpecs: [String: StateMachine]? {
-        ["copy-button": CopyButtonStateMachine.build()]
+        nil
     }
 
     // MARK: - Markdown Rendering
@@ -65,7 +65,7 @@ struct ArticlePage: Document {
                 showFileName: false
             )
         )
-        
+
         let typography = MarkdownTypography(defaultFontSize: .body)
             // Base content styles
             .allHeadings { style in
@@ -80,14 +80,14 @@ struct ArticlePage: Document {
                 style.font(size: .large)
             }
             .heading(.h3) { style in
-                style.font(size: .medium)
+                style.font(size: .body)
             }
             .paragraph { style in
                 style.margins(bottom: "1rem")
             }
             // Inline code
             .inlineCode { style in
-                style.font(family: "ui-monospace, SFMono-Regular, monospace", size: .small)
+                style.font(family: "ui-monospace, SFMono-Regular, monospace", size: .footnote)
                 style.color("#14b8aa")
                 style.background("#e5e7eb").onDark("#1f2937")
                 style.padding(vertical: "0.2em", horizontal: "0.4em")
@@ -148,7 +148,7 @@ struct ArticlePage: Document {
                 syntax.function("#14b8aa")
                 syntax.type("#f472b6")
             }
-        
+
         return WebUIMarkdown(options: options, typography: typography)
     }
 
@@ -204,7 +204,7 @@ struct ArticleContent: Element {
                             .font(leading: .relaxed)
                             .margins(of: 3, at: .bottom)
                     }
-                    MarkupString(content: "<div class=\"markdown-content\">\(first != nil ? html.removeFirstParagraph() : html)</div>")
+                    MarkupString(content: "<div class=\"markdown-content\">\(html)</div>")
                 }
             } else {
                 Text("Coming soon — this article is currently being written. Check back later for the full content.")

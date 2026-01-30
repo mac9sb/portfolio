@@ -9,7 +9,7 @@ import WebUIMarkdown
 /// WebUIMarkdown for rendering Markdown content.
 @main
 public struct Application: Website {
-    nonisolated(unsafe) static let baseMetadata = Metadata(
+    static let baseMetadata = Metadata(
         site: "Mac Long",
         title: "Welcome",
         titleSeparator: " | ",
@@ -39,47 +39,30 @@ public struct Application: Website {
             var pages: [any Document] = [Home()]
 
             for log in logs {
-                let rendered = renderMarkdownContent(for: log.slug)
-                pages.append(ArticlePage(log: log, renderedHTML: rendered))
+                pages.append(ArticlePage(log: log))
             }
             return pages
         }
     }
 
-    private let markdown: EnhancedMarkdownRenderer
+    private let markdown: WebUIMarkdown
 
     /// Creates a new portfolio application instance.
     ///
     /// Initializes the Markdown renderer with enhanced features including
     /// syntax highlighting and table of contents generation.
     public init() {
-        self.markdown = EnhancedMarkdownRenderer(
-            enableSyntaxHighlighting: true,
-            enableTableOfContents: true,
-            syntaxTheme: .dracula
+        let options = MarkdownRenderingOptions(
+            syntaxHighlighting: .enabledForAll,
+            tableOfContents: .enabled(maxDepth: 3),
+            codeBlocks: MarkdownRenderingOptions.CodeBlockOptions(
+                copyButton: true,
+                lineNumbers: false,
+                showFileName: false
+            )
         )
-    }
-
-    /// Renders Markdown content for a given article slug.
-    ///
-    /// Loads the Markdown source file and renders it to HTML using the configured
-    /// Markdown renderer with syntax highlighting and enhanced features.
-    ///
-    /// - Parameter slug: The article slug (filename without extension).
-    /// - Returns: Rendered HTML content, or an error message if rendering fails.
-    private func renderMarkdownContent(for slug: String) -> String {
-        let contentPath = "Sources/Portfolio/Content/\(slug).md"
-
-        guard let content = try? String(contentsOfFile: contentPath, encoding: .utf8) else {
-            return "<p>Coming Soon</p><p>This article is currently being written. Check back later for the full content.</p>"
-        }
-
-        do {
-            let html = try markdown.render(content)
-            return html
-        } catch {
-            return "<p>Error rendering content: \(error)</p>"
-        }
+        let typography = MarkdownTypography(defaultFontSize: .body)
+        self.markdown = WebUIMarkdown(options: options, typography: typography)
     }
 
     /// Main entry point for building the static site.
