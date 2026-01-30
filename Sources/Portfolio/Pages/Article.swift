@@ -1,9 +1,18 @@
 import WebUI
-import WebUITypst
+import WebUIMarkdown
 
+/// Article page: responsible for lazily rendering Markdown content.
+///
+/// Markdown rendering is performed lazily during page rendering so `ArticlePage`
+/// construction remains lightweight and consistent with other pages.
 struct ArticlePage: Document {
     let log: LogEntry
-    let renderedHTML: String
+
+    init(log: LogEntry) {
+        self.log = log
+    }
+
+    // MARK: - Document conformance
 
     var metadata: Metadata {
         let cleanTitle = log.title.replacingOccurrences(of: "**", with: "")
@@ -17,100 +26,218 @@ struct ArticlePage: Document {
 
     var path: String? { "logs/\(log.slug)" }
 
+    /// Stylesheets including global fonts and generated Markdown CSS.
+    var stylesheets: [String]? {
+        [
+            "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
+        ]
+    }
+
+    /// Page-level scripts (global actions).
+    var scripts: [Script]? {
+        [ Script(src: "/js/portfolio-actions.js", attribute: .defer) ]
+    }
+
+    /// State machines used by article pages (e.g. copy buttons).
+    var stateMachineSpecs: [String: StateMachine]? {
+        ["copy-button": CopyButtonStateMachine.build()]
+    }
+
+    // MARK: - Markdown Rendering
+
+    /// Lazily render Markdown content for this article.
+    private var renderedResult: WebUIMarkdown.ParsedMarkdown? {
+        let contentPath = "Sources/Portfolio/Content/\(log.slug).md"
+        guard let content = try? String(contentsOfFile: contentPath, encoding: .utf8) else {
+            return nil
+        }
+        return Self.markdownRenderer().parseMarkdownSafely(content)
+    }
+
+    /// Article-scoped Markdown renderer with syntax highlighting enabled.
+    static func markdownRenderer() -> WebUIMarkdown {
+        let options = MarkdownRenderingOptions(
+            syntaxHighlighting: .enabledForAll,
+            tableOfContents: .enabled(maxDepth: 3),
+            codeBlocks: MarkdownRenderingOptions.CodeBlockOptions(
+                copyButton: true,
+                lineNumbers: false,
+                showFileName: false
+            )
+        )
+        
+        let typography = MarkdownTypography(defaultFontSize: .body)
+            // Base content styles
+            .allHeadings { style in
+                style.font(family: "'Space Grotesk'", weight: .semibold)
+                style.color("#111817").onDark("#ffffff")
+                style.margins(top: "2.5rem", bottom: "1rem")
+            }
+            .heading(.h1) { style in
+                style.font(size: .extraLarge)
+            }
+            .heading(.h2) { style in
+                style.font(size: .large)
+            }
+            .heading(.h3) { style in
+                style.font(size: .medium)
+            }
+            .paragraph { style in
+                style.margins(bottom: "1rem")
+            }
+            // Inline code
+            .inlineCode { style in
+                style.font(family: "ui-monospace, SFMono-Regular, monospace", size: .small)
+                style.color("#14b8aa")
+                style.background("#e5e7eb").onDark("#1f2937")
+                style.padding(vertical: "0.2em", horizontal: "0.4em")
+                style.border(radius: "0.25rem")
+            }
+            // Code blocks
+            .codeBlock { style in
+                style.background("#f3f4f6").onDark("#1f2937")
+                style.padding(all: "1rem")
+                style.border(radius: "0.5rem")
+                style.margins(bottom: "1.5rem")
+            }
+            // Blockquotes
+            .blockquote { style in
+                style.color("#4b5563").onDark("#9ca3af")
+                style.padding(left: "1.5rem")
+                style.border(width: "0 0 0 3px", style: "solid", color: "#14b8aa")
+                style.margins(vertical: "1.5rem", horizontal: "0")
+            }
+            // Links
+            .link { style in
+                style.color("#14b8aa")
+            }
+            // Lists
+            .orderedList { style in
+                style.padding(left: "1.5rem")
+                style.margins(bottom: "1rem")
+            }
+            .unorderedList { style in
+                style.padding(left: "1.5rem")
+                style.margins(bottom: "1rem")
+            }
+            .listItem { style in
+                style.margins(bottom: "0.75rem")
+            }
+            // Tables
+            .table { style in
+                style.margins(vertical: "1rem", horizontal: "0")
+            }
+            .tableHeader { style in
+                style.font(weight: .semibold)
+                style.background("#f3f4f6").onDark("#1f2937")
+                style.padding(vertical: "0.5rem", horizontal: "0.75rem")
+                style.border(width: "1px", style: "solid", color: "#e5e7eb")
+                style.borderColor("#e5e7eb").onDark("#374151")
+            }
+            .tableCell { style in
+                style.padding(vertical: "0.5rem", horizontal: "0.75rem")
+                style.border(width: "1px", style: "solid", color: "#e5e7eb")
+                style.borderColor("#e5e7eb").onDark("#374151")
+            }
+            // Syntax highlighting
+            .syntaxHighlighting { syntax in
+                syntax.keyword("#14b8aa")
+                syntax.string("#fca5a5")
+                syntax.comment("#6b7280")
+                syntax.number("#60a5fa")
+                syntax.function("#14b8aa")
+                syntax.type("#f472b6")
+            }
+        
+        return WebUIMarkdown(options: options, typography: typography)
+    }
+
+    // MARK: - Body
+
     var body: some Markup {
         PageLayout {
-            ArticleContent(log: log, renderedHTML: renderedHTML)
+            ArticleContent(log: log, renderedHTML: renderedResult?.htmlContent)
         }
     }
 }
 
+
+/// Article content element built with WebUI markup.
 struct ArticleContent: Element {
     let log: LogEntry
-    let renderedHTML: String
+    let renderedHTML: String?
+
+    init(log: LogEntry, renderedHTML: String?) {
+        self.log = log
+        self.renderedHTML = renderedHTML
+    }
 
     var body: some Markup {
-        MarkupString(content: buildArticleHTML())
+        let (mainTitle, subtitle) = splitTitle(log.title)
+
+        return Stack {
+            Stack {
+                Heading(.largeTitle, mainTitle)
+                    .font(size: .xl3, weight: .bold)
+                    .frame(maxWidth: .xl4)
+                    .margins(of: 4, at: .bottom)
+
+                if let subtitle = subtitle {
+                    Text(subtitle)
+                        .font(size: .lg, weight: .medium, color: .gray(._600))
+                        .margins(of: 1, at: .top)
+                }
+            }
+
+            Stack {
+                Text(log.category)
+                    .font(size: .sm, weight: .semibold, color: .teal(._700))
+                Text("PUBLISHED // \(log.date)")
+                    .font(size: .xs, color: .gray(._500))
+            }
+            .margins(of: 3, at: .bottom)
+
+            if let html = renderedHTML {
+                Stack {
+                    if let first = html.extractFirstParagraph() {
+                        Text(first)
+                            .font(leading: .relaxed)
+                            .margins(of: 3, at: .bottom)
+                    }
+                    MarkupString(content: "<div class=\"markdown-content\">\(first != nil ? html.removeFirstParagraph() : html)</div>")
+                }
+            } else {
+                Text("Coming soon — this article is currently being written. Check back later for the full content.")
+                    .font(leading: .relaxed)
+                    .margins(of: 3, at: .top)
+            }
+        }
     }
 
-    private func buildArticleHTML() -> String {
-        let cleanTitle = self.log.title.replacingOccurrences(of: "**", with: "")
-        let titleComponents = cleanTitle.components(separatedBy: ": ")  // Use ": " for splitting
-        let mainTitle = titleComponents.first?.trimmingCharacters(in: .whitespaces) ?? cleanTitle
-        let subtitle = titleComponents.dropFirst().first?.trimmingCharacters(in: .whitespaces)
-
-        var html = """
-            <div class="article-container">
-                <div class="article-header-section">
-                    <h1 class="article-header-title">
-                        \(mainTitle)
-            """
-        if let subtitle = subtitle {
-            html += "<br/><span class=\"article-header-subtitle\">\(subtitle)</span>"
-        }
-        html += """
-                    </h1>
-                </div>
-
-                <div class="article-meta-info">
-                    <span class="article-category">\(self.log.category)</span>
-                    <span class="article-published">PUBLISHED // \(self.log.date)</span>
-                </div>
-
-            """
-
-        var remainingHTML = self.renderedHTML
-        if let firstParagraph = remainingHTML.extractFirstParagraph() {
-            html += "<p class=\"article-intro-paragraph\">\(firstParagraph)</p>\n"
-            remainingHTML = remainingHTML.removeFirstParagraph()
-        }
-
-        html += """
-                \(remainingHTML)
-            </div>
-            <script>
-            (function() {
-                const copyButtons = document.querySelectorAll('.typst-copy-btn');
-                copyButtons.forEach(function(btn) {
-                    btn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const wrapper = this.closest('.typst-code-wrapper');
-                        if (!wrapper) return;
-                        
-                        const codeLines = wrapper.querySelectorAll('.typst-code-line code');
-                        let text = '';
-                        codeLines.forEach(function(line, index) {
-                            text += line.textContent;
-                            if (index < codeLines.length - 1) text += '\\n';
-                        });
-                        
-                        navigator.clipboard.writeText(text).then(function() {
-                            const originalHTML = btn.innerHTML;
-                            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                            setTimeout(function() {
-                                btn.innerHTML = originalHTML;
-                            }, 2000);
-                        }).catch(function(err) {
-                            console.error('Copy failed:', err);
-                        });
-                    });
-                });
-            })();
-            </script>
-            """
-        return html
+    private func splitTitle(_ raw: String) -> (String, String?) {
+        let clean = raw.replacingOccurrences(of: "**", with: "")
+        let components = clean.components(separatedBy: ": ")
+        let main = components.first?.trimmingCharacters(in: .whitespaces) ?? clean
+        let subtitle = components.dropFirst().first?.trimmingCharacters(in: .whitespaces)
+        return (main, subtitle)
     }
 }
+
 
 extension String {
     func extractFirstParagraph() -> String? {
-        guard let range = self.range(of: "<p[^>]*>(.*?)</p>", options: .regularExpression, range: self.startIndex..<self.endIndex) else { return nil }
+        guard let range = self.range(of: "<p[^>]*>(.*?)</p>", options: .regularExpression, range: self.startIndex..<self.endIndex) else {
+            return nil
+        }
         let paragraphHTML = String(self[range])
         let textContent = paragraphHTML.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
         return textContent.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     func removeFirstParagraph() -> String {
-        guard let range = self.range(of: "<p[^>]*>(.*?)</p>", options: .regularExpression, range: self.startIndex..<self.endIndex) else { return self }
+        guard let range = self.range(of: "<p[^>]*>(.*?)</p>", options: .regularExpression, range: self.startIndex..<self.endIndex) else {
+            return self
+        }
         return self.replacingCharacters(in: range, with: "")
     }
 }
