@@ -3,7 +3,7 @@ title: Example: WebUI card composition
 date: November 21, 2025
 ---
 
-== Type-safe HTML generation
+## Type-safe HTML generation
 
 WebUI uses Swift's type system to generate valid HTML at compile time:
 
