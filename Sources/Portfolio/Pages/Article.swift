@@ -35,7 +35,7 @@ struct ArticlePage: Document {
 
     /// Page-level scripts (global actions).
     var scripts: [Script]? {
-        [ Script(src: "/js/portfolio-actions.js", attribute: .defer) ]
+        [Script(src: "/js/portfolio-actions.js", attribute: .defer)]
     }
 
     /// State machines used by article pages (e.g. copy buttons).
@@ -161,7 +161,6 @@ struct ArticlePage: Document {
     }
 }
 
-
 /// Article content element built with WebUI markup.
 struct ArticleContent: Element {
     let log: LogEntry
@@ -222,7 +221,6 @@ struct ArticleContent: Element {
         return (main, subtitle)
     }
 }
-
 
 extension String {
     func extractFirstParagraph() -> String? {
