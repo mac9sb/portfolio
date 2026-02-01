@@ -1,5 +1,5 @@
 {
-  "originHash" : "4ac2e64fcabe26aa8abda187e23c145f7a05fc0461871c6a36686dad5eaf390b",
+  "originHash" : "3eda1e204f987e487d9042627f63de3ac54f3137ca1a19b9f22abe8e27b850e6",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hummingbird-project/hummingbird.git",
       "state" : {
-        "revision" : "daf66bfd4b46c1f3f080a1f3438d8fbecee7ace5",
-        "version" : "2.19.0"
+        "revision" : "960fd08e28e1858e0896410e3a800ff80e112a80",
+        "version" : "2.20.0"
       }
     },
     {
@@ -123,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-configuration.git",
       "state" : {
-        "revision" : "6ffef195ed4ba98ee98029970c94db7edc60d4c6",
-        "version" : "1.0.1"
+        "revision" : "b4768bd68d8a6fb356bd372cb41905046244fcae",
+        "version" : "1.0.2"
       }
     },
     {
@@ -213,8 +213,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "233f61bc2cfbb22d0edeb2594da27a20d2ce514e",
-        "version" : "2.93.0"
+        "revision" : "5e72fc102906ebe75a3487595a653e6f43725552",
+        "version" : "2.94.0"
       }
     },
     {
@@ -222,8 +222,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-extras.git",
       "state" : {
-        "revision" : "cc599775aa85d04340f09b47e5432564f9889ae7",
-        "version" : "1.32.0"
+        "revision" : "3df009d563dc9f21a5c85b33d8c2e34d2e4f8c3b",
+        "version" : "1.32.1"
       }
     },
     {
@@ -305,6 +305,15 @@
       "state" : {
         "revision" : "399f76dcd91e4c688ca2301fa24a8cc6d9927211",
         "version" : "0.99.0"
+      }
+    },
+    {
+      "identity" : "web-ui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mac9sb/web-ui",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ec301178b83c4af042e3f362545cad0a49f1aa95"
       }
     }
   ],
