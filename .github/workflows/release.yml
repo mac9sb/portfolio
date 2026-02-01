@@ -16,5 +16,7 @@ jobs:
       draft: false
       generate_release_notes: false
       release_body_intro: ""
+      docc_enabled: true
+      docc_base_path: portfolio
     secrets:
       RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}

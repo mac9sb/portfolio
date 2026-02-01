@@ -10,6 +10,8 @@ This portfolio site is generated as a static website using:
 - **WebUITypst**: Typst content rendering for articles
 - **Static Site Generation**: Pre-rendered at build time for maximum performance
 
+Documentation: https://mac9sb.github.io/portfolio/documentation/
+
 ## Getting Started
 
 ### Prerequisites
