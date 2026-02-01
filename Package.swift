@@ -20,7 +20,7 @@ let package = Package(
                 .product(name: "WebUIMarkdown", package: "web-ui"),
             ],
             resources: [
-                .copy("Content")
+                .process("Content")
             ]
         ),
         .testTarget(

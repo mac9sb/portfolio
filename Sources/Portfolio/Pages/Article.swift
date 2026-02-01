@@ -1,3 +1,4 @@
+import Foundation
 import WebUI
 import WebUIMarkdown
 
@@ -47,8 +48,8 @@ struct ArticlePage: Document {
 
     /// Lazily render Markdown content for this article.
     private var renderedResult: WebUIMarkdown.ParsedMarkdown? {
-        let contentPath = "Sources/Portfolio/Content/\(log.slug).md"
-        guard let content = try? String(contentsOfFile: contentPath, encoding: .utf8) else {
+        guard let contentURL = Bundle.module.url(forResource: log.slug, withExtension: "md", subdirectory: "Content"),
+              let content = try? String(contentsOf: contentURL, encoding: .utf8) else {
             return nil
         }
         return Self.markdownRenderer().parseMarkdownSafely(content)
