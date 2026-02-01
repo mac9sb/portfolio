@@ -10,7 +10,7 @@ let package = Package(
     dependencies: [
         .package(path: "../../tooling/web-ui"),
         .package(url: "https://github.com/swiftlang/swift-testing", from: "0.11.0"),
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
         .executableTarget(
@@ -18,9 +18,6 @@ let package = Package(
             dependencies: [
                 .product(name: "WebUI", package: "web-ui"),
                 .product(name: "WebUIMarkdown", package: "web-ui"),
-            ],
-            plugins: [
-                .plugin(name: "Swift-DocC", package: "swift-docc-plugin"),
             ],
             resources: [
                 .copy("Content")
