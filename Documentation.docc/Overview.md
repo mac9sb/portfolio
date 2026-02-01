@@ -1,9 +1,5 @@
 # Portfolio
 
-@Metadata {
-  @TechnologyRoot
-}
-
 Welcome to **Portfolio**, a Swift package that powers a personal portfolio site using server-side Swift.
 
 ## Overview
