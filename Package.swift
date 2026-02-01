@@ -10,7 +10,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/mac9sb/web-ui", branch: "main"),
         .package(url: "https://github.com/swiftlang/swift-testing", from: "0.11.0"),
-        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.0.0"),
+
     ],
     targets: [
         .executableTarget(
