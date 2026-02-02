@@ -1,6 +1,6 @@
 import Foundation
 import WebUI
-import WebUIMarkdown
+
 
 /// Main portfolio website application.
 ///
@@ -24,9 +24,7 @@ public struct Application: Website {
 
     public var stylesheets: [String]? {
         [
-            "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap",
-            "/styles/markdown.css",
-            "/styles/article.css",
+            "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
         ]
     }
 
@@ -45,24 +43,30 @@ public struct Application: Website {
         }
     }
 
-    private let markdown: WebUIMarkdown
 
-    /// Creates a new portfolio application instance.
-    ///
-    /// Initializes the Markdown renderer with enhanced features including
-    /// syntax highlighting and table of contents generation.
-    public init() {
-        let options = MarkdownRenderingOptions(
-            syntaxHighlighting: .enabledForAll,
-            tableOfContents: .enabled(maxDepth: 3),
-            codeBlocks: MarkdownRenderingOptions.CodeBlockOptions(
-                copyButton: true,
-                lineNumbers: false,
-                showFileName: false
+
+    /// Generates the Markdown CSS and writes it into Public/styles/markdown.css.
+    private static func writeMarkdownCSS() throws {
+        let css = ArticlePage.markdownRenderer().generateAdvancedCSS()
+        let rootURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let stylesDir = rootURL.appending(path: "Public/styles", directoryHint: .isDirectory)
+        var isDirectory: ObjCBool = false
+        if FileManager.default.fileExists(atPath: stylesDir.path, isDirectory: &isDirectory) {
+            if !isDirectory.boolValue {
+                throw NSError(
+                    domain: "Portfolio",
+                    code: 1,
+                    userInfo: [NSLocalizedDescriptionKey: "Public/styles exists but is not a directory."]
+                )
+            }
+        } else {
+            try FileManager.default.createDirectory(
+                at: stylesDir,
+                withIntermediateDirectories: true
             )
-        )
-        let typography = MarkdownTypography(defaultFontSize: .body)
-        self.markdown = WebUIMarkdown(options: options, typography: typography)
+        }
+        let cssURL = stylesDir.appending(path: "markdown.css")
+        try css.write(to: cssURL, atomically: true, encoding: .utf8)
     }
 
     /// Main entry point for building the static site.
@@ -73,6 +77,7 @@ public struct Application: Website {
     /// - Throws: An error if site building fails.
     static func main() async throws {
         do {
+            try writeMarkdownCSS()
             try Application().build()
             print("✓ Application built successfully.")
         } catch {

@@ -56,7 +56,6 @@ struct Contact: Document {
 
                     Button(
                         "Send Message",
-                        type: .button,
                         onClick: "document.getElementById('contact-status')?.textContent = 'Thanks for reaching out. I will reply soon.'; return false;"
                     )
                         .font(weight: .semibold)

@@ -2,6 +2,9 @@
 
 A static portfolio website built with WebUI and Typst, showcasing projects and blog posts.
 
+**ToDo**
+- [ ] Add ASCII Dithered Pyramid Spinning in Hero with some Glitch Effects.
+
 ## Overview
 
 This portfolio site is generated as a static website using:

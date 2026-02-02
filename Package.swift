@@ -8,7 +8,7 @@ let package = Package(
         .macOS(.v15), .tvOS(.v13), .iOS(.v16), .watchOS(.v6), .visionOS(.v2),
     ],
     dependencies: [
-        .package(url: "https://github.com/mac9sb/web-ui", branch: "main"),
+        .package(path: "../../tooling/web-ui"),
         .package(url: "https://github.com/swiftlang/swift-testing", from: "0.11.0"),
 
     ],
@@ -28,6 +28,7 @@ let package = Package(
             dependencies: [
                 "Portfolio",
                 .product(name: "Testing", package: "swift-testing"),
+                .product(name: "WebUIBrowserTesting", package: "web-ui"),
             ]
         ),
     ]

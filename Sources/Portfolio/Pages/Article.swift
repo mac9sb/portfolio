@@ -27,10 +27,12 @@ struct ArticlePage: Document {
 
     var path: String? { "logs/\(log.slug)" }
 
-    /// Stylesheets including global fonts and generated Markdown CSS.
+    /// Article-only stylesheets: markdown typography and article layout.
+    /// Global fonts are provided by the website-level stylesheets.
     var stylesheets: [String]? {
         [
-            "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
+            "/public/styles/markdown.css",
+            "/public/styles/article.css",
         ]
     }
 
