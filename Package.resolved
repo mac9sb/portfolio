@@ -1,5 +1,5 @@
 {
-  "originHash" : "662d36aea3c9b1a5cc6c051bb680b264a4482612a21c8996f235ec1126ed02f1",
+  "originHash" : "1e1c069391399b31b20c4b497b29f42cfe078f8a01c81d4720fbebbf723dc78d",
   "pins" : [
     {
       "identity" : "swift-cmark",
@@ -43,7 +43,7 @@
       "location" : "https://github.com/mac9sb/web-ui",
       "state" : {
         "branch" : "main",
-        "revision" : "65fb31ca4ff19e02dad207356782edc2c34fff55"
+        "revision" : "fc116cc617dffe8d59be32d28055530ff57981ef"
       }
     }
   ],
