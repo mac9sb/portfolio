@@ -36,7 +36,7 @@ public struct Application: Website {
 
     public var routes: [any Document] {
         get throws {
-            var pages: [any Document] = [Home()]
+            var pages: [any Document] = [Home(), Contact()]
 
             for log in logs {
                 pages.append(ArticlePage(log: log))

@@ -8,7 +8,7 @@ struct SiteHeader: Element {
 
     let navItems: [NavigationItem] = [
         NavigationItem(url: "https://github.com/mac9sb", icon: CodeIcon(size: 4)),
-        NavigationItem(url: "mailto:hi@maclong.dev", icon: MailIcon(size: 4)),
+        NavigationItem(url: "/contact", icon: MailIcon(size: 4)),
     ]
 
     var body: some Markup {
