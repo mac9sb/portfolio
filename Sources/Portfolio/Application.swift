@@ -1,7 +1,6 @@
 import Foundation
 import WebUI
 
-
 /// Main portfolio website application.
 ///
 /// Generates a static portfolio site with blog posts, project listings, and
@@ -42,8 +41,6 @@ public struct Application: Website {
             return pages
         }
     }
-
-
 
     /// Generates the Markdown CSS and writes it into Public/styles/markdown.css.
     private static func writeMarkdownCSS() throws {

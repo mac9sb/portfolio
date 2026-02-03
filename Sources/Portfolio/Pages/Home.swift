@@ -7,44 +7,6 @@ struct Home: Document {
 
     var path: String? { "index" }
 
-    var head: String? {
-        """
-        <style>
-        /* Hidden items for pagination */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Dark mode hover states */
-        @media (prefers-color-scheme: dark) {
-            .log-item:hover {
-                background-color: rgb(68 64 60) !important;
-                color: rgb(245 245 244) !important;
-            }
-
-            /* Hero divider in dark mode */
-            .hero-divider {
-                background-color: rgba(255, 255, 255, 0.2) !important;
-            }
-
-            /* Pagination separator line in dark mode */
-            .pagination-buttons-projects + div,
-            .pagination-buttons-logs + div {
-                background-color: rgb(68 64 60) !important;
-            }
-
-            /* Pagination button hover in dark mode - darker background, keep light text */
-            .pagination-left-projects:hover,
-            .pagination-right-projects:hover,
-            .pagination-left-logs:hover,
-            .pagination-right-logs:hover {
-                background-color: rgb(87 83 78) !important;
-            }
-        }
-        </style>
-        """
-    }
-
     var scripts: [Script]? {
         [
             Script {

@@ -27,15 +27,6 @@ struct ArticlePage: Document {
 
     var path: String? { "logs/\(log.slug)" }
 
-    /// Article-only stylesheets: markdown typography and article layout.
-    /// Global fonts are provided by the website-level stylesheets.
-    var stylesheets: [String]? {
-        [
-            "/public/styles/markdown.css",
-            "/public/styles/article.css",
-        ]
-    }
-
     /// Page-level scripts (global actions).
     var scripts: [Script]? {
         [Script(src: "/js/portfolio-actions.js", attribute: .defer)]
@@ -50,8 +41,14 @@ struct ArticlePage: Document {
 
     /// Lazily render Markdown content for this article.
     private var renderedResult: WebUIMarkdown.ParsedMarkdown? {
-        guard let contentURL = Bundle.module.url(forResource: log.slug, withExtension: "md", subdirectory: "Content"),
-              let content = try? String(contentsOf: contentURL, encoding: .utf8) else {
+        guard
+            let contentURL = Bundle.module.url(
+                forResource: log.slug,
+                withExtension: "md",
+                subdirectory: "Content"
+            ),
+            let content = try? String(contentsOf: contentURL, encoding: .utf8)
+        else {
             return nil
         }
         return Self.markdownRenderer().parseMarkdownSafely(content)
