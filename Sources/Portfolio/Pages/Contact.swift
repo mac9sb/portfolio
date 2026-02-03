@@ -58,8 +58,8 @@ struct Contact: Document {
                         "Send Message",
                         onClick: "document.getElementById('contact-status')?.textContent = 'Thanks for reaching out. I will reply soon.'; return false;"
                     )
-                        .font(weight: .semibold)
-                        .padding(of: 3, at: .vertical)
+                    .font(weight: .semibold)
+                    .padding(of: 3, at: .vertical)
 
                     Text("Ready to send.", id: "contact-status")
                         .font(size: .sm, color: .gray(._600))
